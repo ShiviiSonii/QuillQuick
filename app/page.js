@@ -127,9 +127,9 @@ export default function Home() {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 to-gray-900 p-6 flex items-center justify-center">
       {!summary && (
-        <div className="min-h-screen bg-gradient-to-br from-gray-950 to-gray-900 p-6 flex items-center justify-center">
+        <div className="">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -215,31 +215,74 @@ export default function Home() {
       )}
 
       {summary && (
-        <>
-          <p>{summary}</p>
-          <button onClick={handleSimilar}>Find similar</button>
-          <button onClick={handleSearchAgain}>Search Again</button>
-          {isSpeaking ? (
-            <button onClick={handleStopSpeech}>Stop Listening</button>
-          ) : (
-            <button onClick={handleStartSpeech}>Start Listening</button>
-          )}
-          <input
-            type="text"
-            value={question}
-            placeholder="Do you have any question?"
-            onChange={(e) => setQuestion(e.target.value)}
-          />
-          <button onClick={handleFindAnswer}>Find Answer Quickly</button>
-          {allQuestionsAndAnswers.length > 0 &&
-            allQuestionsAndAnswers.map((ans, index) => (
-              <div key={index}>
-                <h3>{ans.question}</h3>
-                <p>{ans.answer}</p>
-              </div>
-            ))}
-        </>
+        <div className="bg-gray-900 text-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto space-y-6">
+          <div className="mb-6">
+            <p className="text-lg font-medium">{summary}</p>
+          </div>
+          <div className="flex gap-4 mb-6">
+            <button
+              onClick={handleSimilar}
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
+            >
+              Find Similar
+            </button>
+            <button
+              onClick={handleSearchAgain}
+              className="bg-green-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+            >
+              Search Again
+            </button>
+            {isSpeaking ? (
+              <button
+                onClick={handleStopSpeech}
+                className="bg-red-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-red-700 transition duration-300"
+              >
+                Stop Listening
+              </button>
+            ) : (
+              <button
+                onClick={handleStartSpeech}
+                className="bg-purple-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-purple-700 transition duration-300"
+              >
+                Start Listening
+              </button>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-4 mb-6">
+            <input
+              type="text"
+              value={question}
+              placeholder="Do you have any question?"
+              onChange={(e) => setQuestion(e.target.value)}
+              className="w-full p-4 bg-gray-800 text-white border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              onClick={handleFindAnswer}
+              className="bg-yellow-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition duration-300"
+            >
+              Find Answer Quickly
+            </button>
+          </div>
+
+          {/* Chat Box Section */}
+          <div className="space-y-6">
+            {allQuestionsAndAnswers.length > 0 &&
+              allQuestionsAndAnswers.map((ans, index) => (
+                <div key={index} className="flex flex-col gap-4">
+                  {/* User's Question on Right */}
+                  <div className="self-end bg-blue-600 text-white p-4 rounded-lg shadow-lg max-w-xs">
+                    <h3 className="font-semibold text-md">{ans.question}</h3>
+                  </div>
+                  {/* Bot's Answer on Left */}
+                  <div className="self-start bg-gray-700 text-white p-4 rounded-lg shadow-lg max-w-xs">
+                    <p className="text-md">{ans.answer}</p>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
       )}
-    </>
+    </div>
   );
 }
