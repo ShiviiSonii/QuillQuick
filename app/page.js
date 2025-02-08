@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -128,29 +129,89 @@ export default function Home() {
   return (
     <>
       {!summary && (
-        <>
-          <input
-            type="text"
-            value={title}
-            placeholder="Enter the book name"
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <select onChange={(e) => setWordLen(e.target.value)} value={wordLen}>
-            <option value="short">Short</option>
-            <option value="medium">Medium</option>
-            <option value="long">Long</option>
-          </select>
-          <select
-            onChange={(e) => setSummaryType(e.target.value)}
-            value={summaryType}
+        <div className="min-h-screen bg-gradient-to-br from-gray-950 to-gray-900 p-6 flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
           >
-            <option value="purpose">Purpose</option>
-            <option value="concept">Concept</option>
-            <option value="plot">Plot</option>
-          </select>
-          <button onClick={handleSummary}>Get Summary</button>
-          <button onClick={handleSuggestion}>Suggest bookname</button>
-        </>
+            <div className="w-full max-w-lg border border-gray-800 bg-gray-900 shadow-2xl rounded-xl p-6">
+              <h2 className="text-center text-gray-100 text-2xl font-semibold mb-4">
+                AI-Powered Book Summary
+              </h2>
+              <div className="space-y-6">
+                <div className="flex gap-3">
+                  <input
+                    type="text"
+                    value={title}
+                    placeholder="Enter book title"
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="flex-1 bg-gray-800 border border-gray-700 text-gray-100 
+                  placeholder-gray-400 focus:ring-gray-700 rounded-lg p-3 outline-none"
+                  />
+                  <button
+                    onClick={handleSuggestion}
+                    className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white
+                  hover:from-purple-700 hover:to-indigo-700 shadow-lg border-0 px-6 
+                  transition-transform transform hover:scale-110 rounded-lg p-3"
+                  >
+                    ✨ Suggest
+                  </button>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-200">
+                    Summary Type
+                  </label>
+                  <select
+                    onChange={(e) => setSummaryType(e.target.value)}
+                    value={summaryType}
+                    className="w-full bg-gray-800 border border-gray-700 text-gray-100 focus:ring-gray-700 rounded-lg p-3"
+                  >
+                    <option value="" disabled selected>
+                      Choose summary type
+                    </option>
+                    <option value="purpose">Purpose</option>
+                    <option value="concept">Concept</option>
+                    <option value="plot">Plot</option>
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-200">
+                    Word Length
+                  </label>
+                  <select
+                    onChange={(e) => setWordLen(e.target.value)}
+                    value={wordLen}
+                    className="w-full bg-gray-800 border border-gray-700 text-gray-100 focus:ring-gray-700 rounded-lg p-3"
+                  >
+                    <option value="" disabled selected>
+                      Select word length
+                    </option>
+                    <option value="short">Short (50-100 words)</option>
+                    <option value="medium">Medium (200-300 words)</option>
+                    <option value="long">Long (500+ words)</option>
+                  </select>
+                </div>
+
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <button
+                    onClick={handleSummary}
+                    className="w-full bg-gradient-to-r from-rose-500 to-pink-500 text-white
+                  hover:from-rose-600 hover:to-pink-600 shadow-lg border-0 py-4 text-lg font-medium 
+                  transition-all duration-300 rounded-lg"
+                  >
+                    ✨ Generate Summary
+                  </button>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       )}
 
       {summary && (
