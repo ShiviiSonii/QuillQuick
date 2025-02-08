@@ -23,7 +23,7 @@ export async function POST(_, { params }) {
     );
 
     const result = await response.json();
-    return NextResponse.json(result);
+    return NextResponse.json(result.candidates[0].content.parts[0].text);
   } catch (error) {
     console.log("Error while summarizing the book:", error);
     return NextResponse.json(

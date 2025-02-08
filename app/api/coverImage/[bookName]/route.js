@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET(_, { params }) {
-  const { bookName } = params;
+  const { bookName } = await params;
 
   if (!bookName) {
     return NextResponse.json(
