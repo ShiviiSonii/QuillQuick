@@ -16,7 +16,7 @@ export async function POST(_, { params }) {
             {
               parts: [
                 {
-                  text: `Give only genre name of this book: ${bookName}`,
+                  text: `Give only the genre name of the book ${bookName}. If the genre is unknown, respond exactly with "No Genre Available" and nothing else.`,
                 },
               ],
             },

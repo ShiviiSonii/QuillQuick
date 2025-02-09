@@ -16,7 +16,7 @@ export async function POST(_, { params }) {
             {
               parts: [
                 {
-                  text: `Give only one famous quote of this book: ${bookName}`,
+                  text: `Give any one quote from this book: ${bookName}.If no quote is available, respond exactly with "No Quote Available" and nothing else.`,
                 },
               ],
             },

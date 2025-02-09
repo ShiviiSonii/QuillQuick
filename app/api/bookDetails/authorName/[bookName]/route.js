@@ -16,7 +16,7 @@ export async function POST(_, { params }) {
             {
               parts: [
                 {
-                  text: `Give only author name of this book: ${bookName}`,
+                  text: `Give only the author name of the book ${bookName}. If the author is unknown, respond exactly with "No Author Name" and nothing else.`,
                 },
               ],
             },

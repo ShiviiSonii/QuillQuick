@@ -16,7 +16,7 @@ export async function POST(_, { params }) {
             {
               parts: [
                 {
-                  text: `Give only publication year of this book: ${bookName}`,
+                  text: `Give only the publication year of the book ${bookName}. If the publication year is unknown, respond exactly with "No Publication Year Available" and nothing else.`,
                 },
               ],
             },

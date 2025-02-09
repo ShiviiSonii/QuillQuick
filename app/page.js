@@ -12,6 +12,10 @@ export default function Home() {
   const [answer, setAnswer] = useState("");
   const [allQuestionsAndAnswers, setAllQuestionsAndAnswers] = useState([]);
   const [coverImageUrl, setCoverImageUrl] = useState("");
+  const [authorName, setAuthorName] = useState("");
+  const [genreName, setGenreName] = useState("");
+  const [publicationYear, setPublicationYear] = useState("");
+  const [quote, setQuote] = useState("");
 
   const handleSummary = async () => {
     if (!title.trim()) {
@@ -38,6 +42,10 @@ export default function Home() {
       const data = await response.json();
       setSummary(data);
       handleCoverImageUrl();
+      handleAuthorName();
+      handleGenreName();
+      handlePublicationYear();
+      handleQuote();
     } catch (error) {
       console.error(error);
     }
@@ -80,10 +88,110 @@ export default function Home() {
       setSummary("");
       setAllQuestionsAndAnswers([]);
       setCoverImageUrl("");
+      setAuthorName("");
+      setGenreName("");
+      setPublicationYear("");
+      setQuote("");
     } catch (error) {
       console.error(error);
     }
     handleStopSpeech();
+  };
+
+  const handleAuthorName = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/bookDetails/authorName/${title}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to find author name");
+      }
+
+      const data = await response.json();
+      setAuthorName(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleGenreName = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/bookDetails/genreName/${title}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to find genre name");
+      }
+
+      const data = await response.json();
+      setGenreName(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handlePublicationYear = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/bookDetails/publicationYear/${title}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to find publication year");
+      }
+
+      const data = await response.json();
+      setPublicationYear(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleQuote = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/bookDetails/quote/${title}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to find famous quote");
+      }
+
+      const data = await response.json();
+      setQuote(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSearchAgain = () => {
@@ -92,6 +200,10 @@ export default function Home() {
     setTitle("");
     setAllQuestionsAndAnswers([]);
     setCoverImageUrl("");
+    setAuthorName("");
+    setGenreName("");
+    setPublicationYear("");
+    setQuote("");
   };
 
   const handleStartSpeech = () => {
@@ -144,7 +256,6 @@ export default function Home() {
 
       const data = await response.json();
       setCoverImageUrl(data.coverImage);
-      set;
     } catch (error) {
       console.error(error);
     }
@@ -247,6 +358,7 @@ export default function Home() {
               {/* Heading for Summary */}
               {/* Summary and Book Image */}
               <div className="flex gap-6 flex-col lg:flex-row md:flex-row">
+                {console.log("coverImageUrl", coverImageUrl)}
                 {coverImageUrl != "" ? (
                   <img
                     src={coverImageUrl} // Replace with your book image URL
@@ -259,10 +371,25 @@ export default function Home() {
                   </div>
                 )}
                 <div>
-                  <h3 className="text-3xl font-extrabold text-start mb-5">
+                  <h3 className="text-4xl font-extrabold text-start mb-4 text-gray-900 dark:text-white">
                     {title}
                   </h3>
-                  <p className="text-lg font-medium">{summary}</p>
+                  <p className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    {summary}
+                  </p>
+                  <p className="text-md font-medium text-gray-600 dark:text-gray-400 italic">
+                    By {authorName}
+                  </p>
+                  <p className="text-md font-medium text-blue-600 dark:text-blue-400">
+                    Genre: {genreName}
+                  </p>
+                  <p className="text-md font-medium text-green-600 dark:text-green-400">
+                    Published: {publicationYear}
+                  </p>
+                  <p className="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-4 border-l-4 border-blue-500 pl-3">
+                    {quote}
+                  </p>
+
                   <div className="flex gap-4 justify-start mt-5 flex-col md:flex-row lg:flex-row">
                     <button
                       onClick={handleSimilar}

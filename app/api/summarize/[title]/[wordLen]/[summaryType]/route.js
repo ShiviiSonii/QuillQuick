@@ -13,7 +13,7 @@ export async function POST(_, { params }) {
             {
               parts: [
                 {
-                  text: `Give the summary of the book: ${title} in ${wordLen} words based on ${summaryType}`,
+                  text: `Give the summary of the book ${title} in ${wordLen} words based on ${summaryType}. Do not add any newline characters (\n) or use highlighted text. Write the entire summary as a single paragraph.`,
                 },
               ],
             },
