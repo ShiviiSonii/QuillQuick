@@ -1,12 +1,14 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import placeholderImg from "@/public/placeholder.jpg";
 import {
   BsCopy,
   BsFillPlayFill,
   BsFillSearchHeartFill,
   BsFillStopFill,
 } from "react-icons/bs";
+import Image from "next/image";
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -233,6 +235,7 @@ export default function Home() {
   };
 
   const handleFindAnswer = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `http://localhost:3000/api/findAnswer/${title}/${summary}/${question}`
@@ -252,6 +255,8 @@ export default function Home() {
       setQuestion("");
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -368,20 +373,18 @@ export default function Home() {
               <h2 className="text-3xl font-semibold text-gray-300">Summary</h2>{" "}
               {/* Heading for Summary */}
               {/* Summary and Book Image */}
-              <div className="flex gap-6 flex-col lg:flex-row md:flex-row">
-                {console.log("coverImageUrl", coverImageUrl)}
-                {coverImageUrl != "" ? (
-                  <img
-                    src={coverImageUrl} // Replace with your book image URL
+              <div className="flex gap-6 flex-col lg:flex-row md:flex-col">
+                <div className="flex-shrink-0 w-[100%] sm:w-[350px] md:w-[400px] lg:w-[400px] h-[auto] sm:h-[500px] md:h-[550px] lg:h-[550px]">
+                  <Image
+                    src={coverImageUrl || placeholderImg}
+                    height={550}
+                    width={400}
                     alt="Book"
-                    className="h-auto w-[100%] lg:w-[50%] md:w-[50%] object-cover rounded-lg shadow-md"
+                    className="object-cover rounded-lg shadow-md w-full h-full"
                   />
-                ) : (
-                  <div className="h-50 object-cover rounded-lg shadow-md">
-                    No Image Available
-                  </div>
-                )}
-                <div>
+                </div>
+
+                <div className="flex-1">
                   <h3 className="text-4xl font-extrabold text-start mb-4 text-gray-900 dark:text-white">
                     {title}
                   </h3>
@@ -484,7 +487,7 @@ export default function Home() {
                 onClick={handleFindAnswer}
                 className="w-full md:w-1/5 h-[48px] bg-gradient-to-r from-yellow-500 to-yellow-400 text-white p-3 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:from-yellow-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               >
-                Find Answer Quickly
+                {!isLoading ? "Find Answer" : "Finding.."}
               </button>
             </div>
           </div>

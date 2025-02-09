@@ -16,7 +16,7 @@ export async function GET(_, { params }) {
             {
               parts: [
                 {
-                  text: `Tell me the answer of this question: ${question} which was taken from the summary: ${summary} of the ${bookName}`,
+                  text: `Tell me the answer of this question: ${question} which was taken from the summary: ${summary} of the ${bookName}.Do not add any newline characters (\n) or use highlighted text. Write the entire summary as a single paragraph.`,
                 },
               ],
             },

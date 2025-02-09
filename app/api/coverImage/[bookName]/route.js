@@ -18,7 +18,7 @@ export async function GET(_, { params }) {
     const bookCoverImage =
       data.docs && data.docs[0].cover_i
         ? `https://covers.openlibrary.org/b/id/${data.docs[0].cover_i}-L.jpg`
-        : "No cover found";
+        : "";
 
     return NextResponse.json({ coverImage: bookCoverImage });
   } catch (error) {
