@@ -151,7 +151,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 to-gray-900 p-6 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 to-gray-900 p-1  md:p-6 lg:p-6 flex items-center justify-center">
       {!summary && (
         <div className="">
           <motion.div
@@ -159,7 +159,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="w-full max-w-lg border border-gray-800 bg-gray-900 shadow-2xl rounded-xl p-6">
+            <div className="w-auto lg:w-full max-w-lg border border-gray-800 bg-gray-900 shadow-2xl rounded-xl p-2 py-4 md:p-6 lg:p-6">
               <h2 className="text-center text-gray-100 text-2xl font-semibold mb-4">
                 AI-Powered Book Summary
               </h2>
@@ -240,18 +240,18 @@ export default function Home() {
 
       {summary && (
         <>
-          <div className="bg-gray-900 text-white p-8 rounded-lg shadow-lg max-w-5xl mx-auto flex flex-col gap-8">
+          <div className="bg-gray-900 text-white p-4 md:p-8 lg:p-8 rounded-lg shadow-lg lg:max-w-5xl w-full mx-auto flex flex-col gap-8">
             {/* Left Side: Summary and Buttons */}
             <div className="flex flex-col space-y-6">
-              <h2 className="text-2xl font-semibold text-gray-300">Summary</h2>{" "}
+              <h2 className="text-3xl font-semibold text-gray-300">Summary</h2>{" "}
               {/* Heading for Summary */}
               {/* Summary and Book Image */}
-              <div className="flex gap-6 items-start">
+              <div className="flex gap-6 flex-col lg:flex-row md:flex-row">
                 {coverImageUrl != "" ? (
                   <img
                     src={coverImageUrl} // Replace with your book image URL
                     alt="Book"
-                    className="h-auto w-[50%] object-cover rounded-lg shadow-md"
+                    className="h-auto w-[100%] lg:w-[50%] md:w-[50%] object-cover rounded-lg shadow-md"
                   />
                 ) : (
                   <div className="h-50 object-cover rounded-lg shadow-md">
@@ -263,7 +263,7 @@ export default function Home() {
                     {title}
                   </h3>
                   <p className="text-lg font-medium">{summary}</p>
-                  <div className="flex gap-4 justify-start mt-5">
+                  <div className="flex gap-4 justify-start mt-5 flex-col md:flex-row lg:flex-row">
                     <button
                       onClick={handleSimilar}
                       className="bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-6 py-3 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:from-indigo-700 hover:to-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -316,25 +316,25 @@ export default function Home() {
                   <h3 className="text-3xl font-semibold text-gray-400">
                     No Questions Yet
                   </h3>
-                  <p className="text-lg text-gray-500">
+                  <p className="text-lg text-gray-500 text-center">
                     Ask a question, and the answer will appear here!
                   </p>
                 </div>
               )}
             </div>
-            <div className="flex flex-col gap-4 mt-6">
+            <div className="flex flex-col md:flex-row justify-between gap-4 mt-6 items-center w-full">
               <input
                 type="text"
                 value={question}
                 placeholder="Do you have any question?"
                 onChange={(e) => setQuestion(e.target.value)}
-                className="w-full p-4 bg-gray-800 text-white border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full md:w-4/5 p-3 bg-gray-800 text-white border border-gray-500 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0"
               />
               <button
                 onClick={handleFindAnswer}
-                className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-white px-6 py-3 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:from-yellow-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                className="w-full md:w-1/5 h-[48px] bg-gradient-to-r from-yellow-500 to-yellow-400 text-white p-3 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:from-yellow-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               >
-                Find Answer Quickly
+                Find Answer
               </button>
             </div>
           </div>
