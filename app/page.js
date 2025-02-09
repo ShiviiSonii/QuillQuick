@@ -1,12 +1,19 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import {
+  BsCopy,
+  BsFillPlayFill,
+  BsFillSearchHeartFill,
+  BsFillStopFill,
+} from "react-icons/bs";
 
 export default function Home() {
   const [title, setTitle] = useState("");
   const [wordLen, setWordLen] = useState("short");
   const [summaryType, setSummaryType] = useState("concept");
   const [summary, setSummary] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
@@ -22,6 +29,8 @@ export default function Home() {
       alert("Please enter a book name.");
       return;
     }
+
+    setIsLoading(true);
 
     try {
       const response = await fetch(
@@ -48,6 +57,8 @@ export default function Home() {
       handleQuote();
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -303,7 +314,7 @@ export default function Home() {
                     value={summaryType}
                     className="w-full bg-gray-800 border border-gray-700 text-gray-100 focus:ring-gray-700 rounded-lg p-3"
                   >
-                    <option value="" disabled selected>
+                    <option value="disabled" disabled selected>
                       Choose summary type
                     </option>
                     <option value="purpose">Purpose</option>
@@ -321,7 +332,7 @@ export default function Home() {
                     value={wordLen}
                     className="w-full bg-gray-800 border border-gray-700 text-gray-100 focus:ring-gray-700 rounded-lg p-3"
                   >
-                    <option value="" disabled selected>
+                    <option value="disabled" disabled selected>
                       Select word length
                     </option>
                     <option value="short">Short (50-100 words)</option>
@@ -340,7 +351,7 @@ export default function Home() {
                   hover:from-rose-600 hover:to-pink-600 shadow-lg border-0 py-4 text-lg font-medium 
                   transition-all duration-300 rounded-lg"
                   >
-                    ✨ Generate Summary
+                    {isLoading ? "Loading..." : "✨ Generate Summary"}
                   </button>
                 </motion.div>
               </div>
@@ -395,27 +406,39 @@ export default function Home() {
                       onClick={handleSimilar}
                       className="bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-6 py-3 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:from-indigo-700 hover:to-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
-                      Find Similar
+                      <div className="flex items-center justify-center gap-1">
+                        <span>Find Similar</span>
+                        <BsCopy className="text-xl" />
+                      </div>
                     </button>
                     <button
                       onClick={handleSearchAgain}
                       className="bg-gradient-to-r from-teal-600 to-teal-500 text-white px-6 py-3 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:from-teal-700 hover:to-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500"
                     >
-                      Search Again
+                      <div className="flex items-center justify-center gap-1">
+                        <span>Search Again</span>
+                        <BsFillSearchHeartFill className="text-xl" />
+                      </div>
                     </button>
                     {isSpeaking ? (
                       <button
                         onClick={handleStopSpeech}
                         className="bg-gradient-to-r from-red-600 to-red-500 text-white px-6 py-3 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:from-red-700 hover:to-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
                       >
-                        Stop Listening
+                        <div className="flex items-center justify-center gap-1">
+                          <span>Stop Listening </span>
+                          <BsFillStopFill className="text-xl" />
+                        </div>
                       </button>
                     ) : (
                       <button
                         onClick={handleStartSpeech}
                         className="bg-gradient-to-r from-orange-600 to-orange-500 text-white px-6 py-3 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:from-orange-700 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
                       >
-                        Start Listening
+                        <div className="flex items-center justify-center gap-1">
+                          <span>Start Listening </span>
+                          <BsFillPlayFill className="text-xl" />
+                        </div>
                       </button>
                     )}
                   </div>
@@ -461,7 +484,7 @@ export default function Home() {
                 onClick={handleFindAnswer}
                 className="w-full md:w-1/5 h-[48px] bg-gradient-to-r from-yellow-500 to-yellow-400 text-white p-3 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:from-yellow-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               >
-                Find Answer
+                Find Answer Quickly
               </button>
             </div>
           </div>
