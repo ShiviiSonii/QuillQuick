@@ -36,7 +36,7 @@ export default function Home() {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/summarize/${title}/${wordLen}/${summaryType}`,
+        `/api/summarize/${title}/${wordLen}/${summaryType}`,
         {
           method: "POST",
           headers: {
@@ -66,7 +66,7 @@ export default function Home() {
 
   const handleSuggestion = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/suggest");
+      const response = await fetch("/api/suggest");
 
       if (!response.ok) {
         throw new Error("Failed to suggest book name");
@@ -81,16 +81,13 @@ export default function Home() {
 
   const handleSimilar = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/suggestNextSummary/${title}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ title }),
-        }
-      );
+      const response = await fetch(`/api/suggestNextSummary/${title}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to find similar book name");
@@ -113,16 +110,13 @@ export default function Home() {
 
   const handleAuthorName = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/bookDetails/authorName/${title}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ title }),
-        }
-      );
+      const response = await fetch(`/api/bookDetails/authorName/${title}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to find author name");
@@ -137,16 +131,13 @@ export default function Home() {
 
   const handleGenreName = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/bookDetails/genreName/${title}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ title }),
-        }
-      );
+      const response = await fetch(`/api/bookDetails/genreName/${title}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to find genre name");
@@ -162,7 +153,7 @@ export default function Home() {
   const handlePublicationYear = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/bookDetails/publicationYear/${title}`,
+        `/api/bookDetails/publicationYear/${title}`,
         {
           method: "POST",
           headers: {
@@ -185,16 +176,13 @@ export default function Home() {
 
   const handleQuote = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/bookDetails/quote/${title}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ title }),
-        }
-      );
+      const response = await fetch(`/api/bookDetails/quote/${title}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to find famous quote");
@@ -238,7 +226,7 @@ export default function Home() {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/findAnswer/${title}/${summary}/${question}`
+        `/api/findAnswer/${title}/${summary}/${question}`
       );
 
       if (!response.ok) {
@@ -262,9 +250,7 @@ export default function Home() {
 
   const handleCoverImageUrl = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/coverImage/${title}`
-      );
+      const response = await fetch(`/api/coverImage/${title}`);
 
       if (!response.ok) {
         throw new Error("Failed to find cover image");
