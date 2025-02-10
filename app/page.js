@@ -17,6 +17,7 @@ export default function Home() {
   const [summary, setSummary] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [highlightedWordIndex, setHighlightedWordIndex] = useState(null);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [allQuestionsAndAnswers, setAllQuestionsAndAnswers] = useState([]);
@@ -25,6 +26,8 @@ export default function Home() {
   const [genreName, setGenreName] = useState("");
   const [publicationYear, setPublicationYear] = useState("");
   const [quote, setQuote] = useState("");
+
+  const words = summary ? summary.split(" ") : [];
 
   const handleSummary = async () => {
     if (!title.trim()) {
@@ -211,7 +214,17 @@ export default function Home() {
     if (!summary) return;
 
     const utterance = new SpeechSynthesisUtterance(summary);
-    utterance.onend = () => setIsSpeaking(false);
+
+    utterance.onboundary = (event) => {
+      // Event triggered when speech synthesis reaches a word boundary
+      const wordIndex = getWordIndexFromCharIndex(event.charIndex);
+      setHighlightedWordIndex(wordIndex); // Update the highlighted word index
+    };
+
+    utterance.onend = () => {
+      setIsSpeaking(false);
+      setHighlightedWordIndex(null); // Reset highlight when speech ends
+    };
 
     speechSynthesis.speak(utterance);
     setIsSpeaking(true);
@@ -220,6 +233,19 @@ export default function Home() {
   const handleStopSpeech = () => {
     speechSynthesis.cancel();
     setIsSpeaking(false);
+    setHighlightedWordIndex(null); // Reset highlight if speech is stopped
+  };
+
+  // Utility function to map character index to word index
+  const getWordIndexFromCharIndex = (charIndex) => {
+    let currentCharCount = 0;
+    for (let i = 0; i < words.length; i++) {
+      currentCharCount += words[i].length + 1; // +1 for the space
+      if (charIndex < currentCharCount) {
+        return i;
+      }
+    }
+    return words.length - 1; // Default to last word if no match found
   };
 
   const handleFindAnswer = async () => {
@@ -375,7 +401,19 @@ export default function Home() {
                     {title}
                   </h3>
                   <p className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                    {summary}
+                    {/* Highlight words based on the index */}
+                    {words.map((word, index) => (
+                      <span
+                        key={index}
+                        className={`${
+                          index === highlightedWordIndex
+                            ? "bg-yellow-300 text-[#1a1a1a]" // Highlight current word
+                            : ""
+                        }`}
+                      >
+                        {word}{" "}
+                      </span>
+                    ))}
                   </p>
                   <p className="text-md font-medium text-gray-600 dark:text-gray-400 italic">
                     By {authorName}
