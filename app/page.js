@@ -449,16 +449,13 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Side: Chatbox */}
             <div className="flex-1 space-y-6">
               {allQuestionsAndAnswers.length > 0 ? (
                 allQuestionsAndAnswers.map((ans, index) => (
                   <div key={index} className="flex flex-col gap-4">
-                    {/* User's Question on Right */}
                     <div className="self-end bg-indigo-600 text-white p-4 rounded-lg shadow-lg max-w-xs">
                       <h3 className="font-semibold text-md">{ans.question}</h3>
                     </div>
-                    {/* Bot's Answer on Left */}
                     <div className="self-start bg-gray-700 text-white p-4 rounded-lg shadow-lg max-w-xs">
                       <p className="text-md">{ans.answer}</p>
                     </div>
@@ -487,7 +484,14 @@ export default function Home() {
                 onClick={handleFindAnswer}
                 className="w-full md:w-1/5 h-[48px] bg-gradient-to-r from-yellow-500 to-yellow-400 text-white p-3 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:from-yellow-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               >
-                {!isLoading ? "Find Answer" : "Finding.."}
+                {!isLoading ? (
+                  <div className="flex items-center justify-center gap-1">
+                    <span>Find Answer</span>
+                    <BsFillSearchHeartFill className="text-xl" />
+                  </div>
+                ) : (
+                  "Finding.."
+                )}
               </button>
             </div>
           </div>

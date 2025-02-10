@@ -1,16 +1,26 @@
 import { NextResponse } from "next/server";
 
 const books = [
-  { title: "The Silent Echo" },
-  { title: "Beyond the Horizon" },
-  { title: "Echoes of Eternity" },
-  { title: "Whispers in the Dark" },
-  { title: "The Lost Manuscript" },
-  { title: "Parallel Lives" },
-  { title: "The Last Alchemist" },
-  { title: "Beneath the Ice" },
-  { title: "Shadows of the Forgotten" },
-  { title: "Neon Nights" },
+  { title: "The Alchemist" },
+  { title: "To Kill a Mockingbird" },
+  { title: "1984" },
+  { title: "Pride and Prejudice" },
+  { title: "The Great Gatsby" },
+  { title: "Moby-Dick" },
+  { title: "War and Peace" },
+  { title: "The Catcher in the Rye" },
+  { title: "Brave New World" },
+  { title: "Crime and Punishment" },
+  { title: "The Lord of the Rings" },
+  { title: "Harry Potter and the Sorcerer’s Stone" },
+  { title: "The Hobbit" },
+  { title: "Fahrenheit 451" },
+  { title: "The Diary of a Young Girl" },
+  { title: "The Book Thief" },
+  { title: "Wuthering Heights" },
+  { title: "Jane Eyre" },
+  { title: "The Picture of Dorian Gray" },
+  { title: "Dracula" },
 ];
 
 export function GET() {
