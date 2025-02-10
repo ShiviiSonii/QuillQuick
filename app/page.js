@@ -379,14 +379,14 @@ export default function Home() {
 
       {summary && (
         <>
-          <div className="bg-gray-900 text-white p-4 md:p-8 lg:p-8 rounded-lg shadow-lg lg:max-w-5xl w-full mx-auto flex flex-col gap-8">
+          <div className="bg-gray-900 text-white p-4 md:p-8 lg:p-8 rounded-lg shadow-lg lg:max-w-5xl mx-auto flex flex-col gap-8 overflow-hidden">
             {/* Left Side: Summary and Buttons */}
             <div className="flex flex-col space-y-6">
               <h2 className="text-3xl font-semibold text-gray-300">Summary</h2>{" "}
               {/* Heading for Summary */}
               {/* Summary and Book Image */}
-              <div className="flex gap-6 flex-col lg:flex-row md:flex-col">
-                <div className="flex-shrink-0 w-[100%] sm:w-[350px] md:w-[400px] lg:w-[400px] h-[auto] sm:h-[500px] md:h-[550px] lg:h-[550px]">
+              <div className="flex gap-6 flex-col lg:flex-row md:flex-col flex-wrap">
+                <div className="flex-shrink-0 w-full sm:w-[350px] md:w-[400px] lg:w-[400px] h-auto sm:h-[500px] md:h-[550px] lg:h-[550px] max-w-full">
                   <Image
                     src={coverImageUrl || placeholderImg}
                     height={550}
@@ -473,7 +473,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex-1 space-y-6">
+            <div className="flex-1 space-y-6 overflow-y-auto max-h-[60vh] scrollbar-custom">
               {allQuestionsAndAnswers.length > 0 ? (
                 allQuestionsAndAnswers.map((ans, index) => (
                   <div key={index} className="flex flex-col gap-4">
