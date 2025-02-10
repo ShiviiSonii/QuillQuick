@@ -298,7 +298,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="w-auto lg:w-full max-w-lg border border-gray-800 bg-gray-900 shadow-2xl rounded-xl p-2 py-4 md:p-6 lg:p-6">
+            <div className="w-auto lg:w-full max-w-lg lg:border lg:border-gray-800 lg:bg-gray-900 shadow-2xl rounded-xl lg:p-6">
               <h2 className="text-center text-gray-100 text-2xl font-semibold mb-4">
                 AI-Powered Book Summary
               </h2>
