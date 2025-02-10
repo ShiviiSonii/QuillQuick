@@ -298,25 +298,25 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="w-auto lg:w-full max-w-lg lg:border lg:border-gray-800 lg:bg-gray-900 shadow-2xl rounded-xl lg:p-6">
+            <div className="w-full max-w-full sm:max-w-lg lg:border lg:border-gray-800 lg:bg-gray-900 shadow-2xl rounded-xl p-4 sm:p-6">
               <h2 className="text-center text-gray-100 text-2xl font-semibold mb-4">
                 AI-Powered Book Summary
               </h2>
               <div className="space-y-6">
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-3">
                   <input
                     type="text"
                     value={title}
                     placeholder="Enter book title"
                     onChange={(e) => setTitle(e.target.value)}
                     className="flex-1 bg-gray-800 border border-gray-700 text-gray-100 
-                  placeholder-gray-400 focus:ring-gray-700 rounded-lg p-3 outline-none"
+      placeholder-gray-400 focus:ring-gray-700 rounded-lg p-3 outline-none min-w-0"
                   />
                   <button
                     onClick={handleSuggestion}
                     className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white
-                  hover:from-purple-700 hover:to-indigo-700 shadow-lg border-0 px-6 
-                  transition-transform transform hover:scale-110 rounded-lg p-3 "
+      hover:from-purple-700 hover:to-indigo-700 shadow-lg border-0 px-6 
+      transition-transform transform hover:scale-110 rounded-lg p-3 whitespace-nowrap"
                   >
                     Suggest✨
                   </button>
@@ -331,7 +331,7 @@ export default function Home() {
                     value={summaryType}
                     className="w-full bg-gray-800 border border-gray-700 text-gray-100 focus:ring-gray-700 rounded-lg p-3"
                   >
-                    <option value="disabled" disabled selected>
+                    <option value="disabled" disabled>
                       Choose summary type
                     </option>
                     <option value="purpose">Purpose</option>
@@ -349,7 +349,7 @@ export default function Home() {
                     value={wordLen}
                     className="w-full bg-gray-800 border border-gray-700 text-gray-100 focus:ring-gray-700 rounded-lg p-3"
                   >
-                    <option value="disabled" disabled selected>
+                    <option value="disabled" disabled>
                       Select word length
                     </option>
                     <option value="short">Short (50-100 words)</option>
@@ -365,8 +365,8 @@ export default function Home() {
                   <button
                     onClick={handleSummary}
                     className="w-full bg-gradient-to-r from-rose-500 to-pink-500 text-white
-                  hover:from-rose-600 hover:to-pink-600 shadow-lg border-0 py-4 text-lg font-medium 
-                  transition-all duration-300 rounded-lg"
+      hover:from-rose-600 hover:to-pink-600 shadow-lg border-0 py-4 text-lg font-medium 
+      transition-all duration-300 rounded-lg"
                   >
                     {isLoading ? "Loading..." : "✨ Generate Summary"}
                   </button>
